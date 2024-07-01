@@ -3,7 +3,7 @@ import requests
 import base64
 from datetime import datetime
 
-web_prefix="https://smart-home-backend-95to.onrender.com"
+web_prefix="https://smart-home-backend-xn7x.onrender.com"
 # Function to calculate the start index
 def calculate_start_index():
     now = datetime.now()
@@ -17,8 +17,11 @@ def setup_streaming(household, interval):
         "interval": interval,
         "start_index": start_index
     }
-    response = requests.post(str(web_prefix+'/stream_setup'), json=data)
-    return response.json()
+    try:
+        response = requests.post(str(web_prefix+'/stream_setup'), json=data)
+        return response.json()
+    except Exception:
+        return {"Server Error":{response}}
 
 # Function to open the website in a new tab using JavaScript
 def open_website_in_tab(url):
